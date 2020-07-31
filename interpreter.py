@@ -1,17 +1,14 @@
-from rpython.rlib.jit import JitDriver, purefunction
-
-def get_location(pc, program, bracket_map):
-    return "%s_%s_%s" % (
-            program[:pc], program[pc], program[pc+1:]
-            )
-
-jitdriver = JitDriver(greens=['pc', 'program', 'bracket_map'],
-                      reds=['tape'], get_printable_location=get_location)
-
 import os
 import sys
 
-class Tape:
+from rpython.rlib.jit import JitDriver, purefunction
+
+
+jitdriver = JitDriver(greens=['pc', 'program', 'bracket_map'],
+                      reds=['tape'])
+
+
+class Tape(object):
     def __init__(self):
         self.the_tape = [0]
         self.pos = 0
